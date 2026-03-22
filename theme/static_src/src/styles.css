@@ -1,11 +1,23 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-/**
-  * A catch-all path to Django template files, JavaScript, and Python files
-  * that contain Tailwind CSS classes and will be scanned by Tailwind to generate the final CSS file.
-  *
-  * If your final CSS file is not being updated after code changes, you may want to broaden or narrow
-  * the scope of this path.
-  */
-@source "../../../**/*.{html,py,js}";
+@theme {
+  /* Colores Primarios */
+  --color-charcoal: #1f2937;
+  --color-humo: #f9fafb;
+
+  /* Colores de Acento */
+  --color-turquesa: #0f766e;
+  --color-esmeralda: #166534;
+  --color-azul-real: #2563eb;
+
+  /* Neutros */
+  --color-gris-medio: #9ca3af;
+  --color-gris-claro: #e5e7eb;
+
+  /* Tipografía */
+  --font-inter: "Inter", ui-sans-serif, system-ui;
+}
+
+/* Personalización de DaisyUI para que coincida con la guía */
+@config "../../tailwind.config.js"; /* Si necesitas extender config externa */
