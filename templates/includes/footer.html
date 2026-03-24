@@ -1,0 +1,51 @@
+{% load static %}
+<footer id="contacto" class="mt-16 border-t border-brand-grayLight bg-brand-charcoal text-white">
+    <div class="mx-auto max-w-7xl px-4 py-12">
+        <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="flex h-9 w-9 items-center justify-center rounded-btn bg-brand-teal text-white">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                    </span>
+                    <span class="font-['Montserrat'] text-sm font-semibold uppercase">Inmobiliaria Hogar Nuevo</span>
+                </div>
+                <p class="mt-4 text-sm text-brand-gray">Tu hogar en la Ciudad de México.</p>
+            </div>
+            <div>
+                <h3 class="font-['Montserrat'] text-sm font-semibold uppercase tracking-wide text-brand-grayLight">Enlaces rápidos</h3>
+                <ul class="mt-4 space-y-2 text-sm">
+                    <li><a href="{% url 'pages:home' %}" class="text-brand-gray hover:text-white transition">Inicio</a></li>
+                    <li><a href="{% url 'properties:list' %}" class="text-brand-gray hover:text-white transition">Propiedades</a></li>
+                    <li><a href="#" class="text-brand-gray hover:text-white transition">Nosotros</a></li>
+                    <li><a href="#" class="text-brand-gray hover:text-white transition">Blog</a></li>
+                    <li><a href="{% url 'pages:home' %}#contacto" class="text-brand-gray hover:text-white transition">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-['Montserrat'] text-sm font-semibold uppercase tracking-wide text-brand-grayLight">Categorías</h3>
+                <ul class="mt-4 space-y-2 text-sm">
+                    <li><a href="{% url 'properties:list' %}?property_type=apartment" class="text-brand-gray hover:text-white transition">Departamentos</a></li>
+                    <li><a href="{% url 'properties:list' %}?property_type=house" class="text-brand-gray hover:text-white transition">Casas</a></li>
+                    <li><a href="{% url 'properties:list' %}?property_type=land" class="text-brand-gray hover:text-white transition">Terrenos</a></li>
+                    <li><a href="{% url 'properties:list' %}?property_type=office" class="text-brand-gray hover:text-white transition">Oficinas</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-['Montserrat'] text-sm font-semibold uppercase tracking-wide text-brand-grayLight">Contacto</h3>
+                <ul class="mt-4 space-y-2 text-sm text-brand-gray">
+                    <li><a href="tel:+525555555555" class="hover:text-white transition">+52 55 5555 5555</a></li>
+                    <li><a href="mailto:contacto@hogarnuevo.mx" class="hover:text-white transition">contacto@hogarnuevo.mx</a></li>
+                    <li>Ciudad de México, CDMX</li>
+                </ul>
+                <div class="mt-4 flex gap-4" aria-label="Redes sociales">
+                    <a href="#" class="text-brand-gray hover:text-white transition" aria-label="Facebook">FB</a>
+                    <a href="#" class="text-brand-gray hover:text-white transition" aria-label="Instagram">IG</a>
+                    <a href="#" class="text-brand-gray hover:text-white transition" aria-label="LinkedIn">in</a>
+                </div>
+            </div>
+        </div>
+        <p class="mt-10 border-t border-white/10 pt-8 text-center text-xs text-brand-gray">© {% now "Y" %} Inmobiliaria Hogar Nuevo. Todos los derechos reservados.</p>
+    </div>
+</footer>

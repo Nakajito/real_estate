@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Propiedades{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-7xl px-4 py-10">
+    <h1 class="font-['Montserrat'] text-3xl font-bold uppercase text-brand-charcoal">Propiedades</h1>
+    <p class="mt-2 text-sm text-brand-gray">Filtra por operación, tipo, colonia y precio.</p>
+
+    <form method="get" class="mt-8 rounded-card border border-brand-grayLight bg-white p-6 shadow-card">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
+            <div>
+                <label for="id_listing_type" class="mb-1 block text-xs font-medium uppercase text-brand-gray">Operación</label>
+                <select name="listing_type" id="id_listing_type" class="w-full rounded-btn border border-brand-grayLight px-3 py-2 text-sm">
+                    <option value="">Todas</option>
+                    <option value="buy" {% if request.GET.listing_type == "buy" %}selected{% endif %}>Compra</option>
+                    <option value="rent" {% if request.GET.listing_type == "rent" %}selected{% endif %}>Renta</option>
+                </select>
+            </div>
+            <div>
+                <label for="id_property_type" class="mb-1 block text-xs font-medium uppercase text-brand-gray">Tipo</label>
+                <select name="property_type" id="id_property_type" class="w-full rounded-btn border border-brand-grayLight px-3 py-2 text-sm">
+                    <option value="">Todos</option>
+                    <option value="house" {% if request.GET.property_type == "house" %}selected{% endif %}>Casa</option>
+                    <option value="apartment" {% if request.GET.property_type == "apartment" %}selected{% endif %}>Departamento</option>
+                    <option value="land" {% if request.GET.property_type == "land" %}selected{% endif %}>Terreno</option>
+                    <option value="office" {% if request.GET.property_type == "office" %}selected{% endif %}>Oficina</option>
+                </select>
+            </div>
+            <div>
+                <label for="id_neighborhood" class="mb-1 block text-xs font-medium uppercase text-brand-gray">Colonia</label>
+                <select name="neighborhood" id="id_neighborhood" class="w-full rounded-btn border border-brand-grayLight px-3 py-2 text-sm">
+                    <option value="">Todas</option>
+                    {% for n in neighborhoods %}
+                        <option value="{{ n.pk }}" {% if request.GET.neighborhood == n.pk|stringformat:"s" %}selected{% endif %}>{{ n.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="id_min_price" class="mb-1 block text-xs font-medium uppercase text-brand-gray">Precio mín.</label>
+                <input type="number" name="min_price" id="id_min_price" value="{{ request.GET.min_price }}" min="0" step="1" class="w-full rounded-btn border border-brand-grayLight px-3 py-2 text-sm">
+            </div>
+            <div>
+                <label for="id_max_price" class="mb-1 block text-xs font-medium uppercase text-brand-gray">Precio máx.</label>
+                <input type="number" name="max_price" id="id_max_price" value="{{ request.GET.max_price }}" min="0" step="1" class="w-full rounded-btn border border-brand-grayLight px-3 py-2 text-sm">
+            </div>
+            <div>
+                <label for="id_q" class="mb-1 block text-xs font-medium uppercase text-brand-gray">Buscar</label>
+                <input type="search" name="q" id="id_q" value="{{ request.GET.q }}" class="w-full rounded-btn border border-brand-grayLight px-3 py-2 text-sm">
+            </div>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-3">
+            <button type="submit" class="rounded-btn bg-brand-teal px-6 py-2 text-sm font-semibold uppercase text-white hover:bg-brand-emerald transition">Aplicar filtros</button>
+            <a href="{% url 'properties:list' %}" class="rounded-btn border border-brand-gray px-6 py-2 text-sm font-medium text-brand-gray hover:bg-brand-grayLight transition">Limpiar</a>
+        </div>
+    </form>
+
+    <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {% for property in property_list %}
+            {% include "includes/property_card.html" %}
+        {% empty %}
+            <p class="col-span-full py-12 text-center text-brand-gray">No hay propiedades con estos criterios.</p>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+        <nav class="mt-12 flex justify-center gap-2" aria-label="Paginación">
+            {% if page_obj.has_previous %}
+                <a href="?{% if filter_query %}{{ filter_query }}&{% endif %}page={{ page_obj.previous_page_number }}" class="rounded-btn border border-brand-grayLight px-4 py-2 text-sm hover:bg-brand-grayLight">Anterior</a>
+            {% endif %}
+            <span class="px-4 py-2 text-sm text-brand-gray">Página {{ page_obj.number }} de {{ paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="?{% if filter_query %}{{ filter_query }}&{% endif %}page={{ page_obj.next_page_number }}" class="rounded-btn border border-brand-grayLight px-4 py-2 text-sm hover:bg-brand-grayLight">Siguiente</a>
+            {% endif %}
+        </nav>
+    {% endif %}
+</div>
+{% endblock %}

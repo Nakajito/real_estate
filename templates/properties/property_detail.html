@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}{{ property.title }}{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-7xl px-4 py-10">
+    <nav class="text-sm text-brand-gray">
+        <a href="{% url 'pages:home' %}" class="hover:text-brand-teal">Inicio</a>
+        <span class="mx-2">/</span>
+        <a href="{% url 'properties:list' %}" class="hover:text-brand-teal">Propiedades</a>
+        <span class="mx-2">/</span>
+        <span class="text-brand-charcoal">{{ property.title|truncatewords:8 }}</span>
+    </nav>
+
+    <div class="mt-8 grid gap-10 lg:grid-cols-2">
+        <div>
+            {% with primary=property.primary_image %}
+                {% if primary %}
+                    <img src="{{ primary.image.url }}" alt="" class="w-full rounded-card object-cover shadow-card aspect-[4/3]">
+                {% else %}
+                    <div class="flex aspect-[4/3] w-full items-center justify-center rounded-card bg-brand-grayLight text-brand-gray">Sin imagen</div>
+                {% endif %}
+            {% endwith %}
+            {% if property.images.count > 1 %}
+                <div class="mt-4 grid grid-cols-4 gap-2">
+                    {% for img in property.images.all %}
+                        <img src="{{ img.image.url }}" alt="" class="h-20 w-full rounded-btn object-cover">
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            <span class="inline-block rounded-badge bg-brand-charcoal px-2 py-1 text-xs font-semibold uppercase text-white">
+                {% if property.listing_type == "buy" %}Venta{% else %}Renta{% endif %}
+            </span>
+            <h1 class="mt-4 font-['Montserrat'] text-3xl font-bold text-brand-charcoal">{{ property.title }}</h1>
+            <p class="mt-2 text-brand-gray">{{ property.neighborhood.name }}{% if property.borough %}, {{ property.borough }}{% endif %}, CDMX</p>
+            <p class="mt-6 text-3xl font-bold text-brand-teal">${{ property.price|floatformat:0|intcomma }} <span class="text-lg font-medium text-brand-gray">{{ property.currency }}</span></p>
+
+            <dl class="mt-8 grid grid-cols-2 gap-4 border-t border-brand-grayLight pt-8 text-sm">
+                {% if property.square_meters %}
+                    <div>
+                        <dt class="text-brand-gray">Superficie</dt>
+                        <dd class="font-semibold text-brand-charcoal">{{ property.square_meters }} m²</dd>
+                    </div>
+                {% endif %}
+                <div>
+                    <dt class="text-brand-gray">Estacionamientos</dt>
+                    <dd class="font-semibold text-brand-charcoal">{{ property.parking_spots }}</dd>
+                </div>
+                <div>
+                    <dt class="text-brand-gray">Tipo</dt>
+                    <dd class="font-semibold text-brand-charcoal">{{ property.get_property_type_display }}</dd>
+                </div>
+                <div>
+                    <dt class="text-brand-gray">Operación</dt>
+                    <dd class="font-semibold text-brand-charcoal">{{ property.get_listing_type_display }}</dd>
+                </div>
+            </dl>
+
+            {% if property.address_line %}
+                <p class="mt-6 text-sm text-brand-gray"><strong class="text-brand-charcoal">Dirección:</strong> {{ property.address_line }}</p>
+            {% endif %}
+
+            {% if property.description %}
+                <div class="mt-8 border-t border-brand-grayLight pt-8">
+                    <h2 class="font-['Montserrat'] text-lg font-semibold uppercase text-brand-charcoal">Descripción</h2>
+                    <div class="prose prose-sm mt-4 max-w-none text-brand-gray">{{ property.description|linebreaks }}</div>
+                </div>
+            {% endif %}
+
+            <a href="{% url 'pages:home' %}#contacto" class="mt-10 inline-flex rounded-btn bg-brand-emerald px-8 py-3 text-sm font-bold uppercase tracking-wide text-white hover:opacity-95 transition">Contactar</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

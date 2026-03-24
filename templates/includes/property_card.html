@@ -1,0 +1,37 @@
+{% load humanize %}
+<article class="flex flex-col overflow-hidden rounded-card bg-white shadow-card transition hover:shadow-lg">
+    <a href="{{ property.get_absolute_url }}" class="relative block aspect-[4/3] bg-brand-grayLight">
+        {% with img=property.primary_image %}
+            {% if img %}
+                <img src="{{ img.image.url }}" alt="" class="h-full w-full object-cover">
+            {% else %}
+                <div class="flex h-full w-full items-center justify-center text-sm text-brand-gray">Sin imagen</div>
+            {% endif %}
+        {% endwith %}
+        <span class="absolute left-3 top-3 rounded-badge bg-brand-charcoal px-2 py-1 text-xs font-semibold uppercase text-white">
+            {% if property.listing_type == "buy" %}Venta{% else %}Renta{% endif %}
+        </span>
+    </a>
+    <div class="flex flex-1 flex-col p-4">
+        <p class="text-lg font-semibold text-brand-teal">${{ property.price|floatformat:0|intcomma }} {{ property.currency }}</p>
+        <h3 class="mt-1 font-['Montserrat'] text-base font-semibold leading-snug text-brand-charcoal">
+            <a href="{{ property.get_absolute_url }}" class="hover:text-brand-teal">{{ property.title }}</a>
+        </h3>
+        <p class="mt-2 text-sm text-brand-gray">{{ property.neighborhood.name }}{% if property.borough %}, {{ property.borough }}{% endif %}, CDMX</p>
+        <div class="mt-3 flex flex-wrap gap-4 text-sm text-brand-gray">
+            {% if property.square_meters %}
+                <span class="flex items-center gap-1">
+                    <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                    {{ property.square_meters }} m²
+                </span>
+            {% endif %}
+            {% if property.parking_spots %}
+                <span class="flex items-center gap-1">
+                    <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                    {{ property.parking_spots }} auto{% if property.parking_spots != 1 %}s{% endif %}
+                </span>
+            {% endif %}
+        </div>
+        <a href="{{ property.get_absolute_url }}" class="mt-4 inline-flex w-full items-center justify-center rounded-btn bg-brand-teal px-4 py-2 text-center text-sm font-semibold uppercase tracking-wide text-white hover:bg-brand-emerald transition">Ver detalles</a>
+    </div>
+</article>

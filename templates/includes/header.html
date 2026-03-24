@@ -1,0 +1,41 @@
+{% load static %}
+<header class="sticky top-0 z-50 bg-white shadow-card">
+    <div class="border-b border-brand-grayLight bg-brand-charcoal text-white text-xs sm:text-sm">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2">
+            <span class="tracking-wide">Ciudad de CDMX, México</span>
+            <div class="flex gap-2 sm:gap-4">
+                <a href="#" class="hover:text-brand-grayLight transition">Iniciar sesión</a>
+                <span class="text-brand-gray" aria-hidden="true">|</span>
+                <a href="#" class="hover:text-brand-grayLight transition">Registrarse</a>
+            </div>
+        </div>
+    </div>
+    <div class="mx-auto max-w-7xl px-4 py-4">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <a href="{% url 'pages:home' %}" class="flex items-center gap-2 text-brand-charcoal">
+                <span class="flex h-10 w-10 items-center justify-center rounded-btn bg-brand-teal text-white" aria-hidden="true">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                </span>
+                <span class="font-['Montserrat'] text-lg font-semibold uppercase tracking-tight sm:text-xl">Inmobiliaria Hogar Nuevo</span>
+            </a>
+            <nav class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium uppercase tracking-wide text-brand-charcoal" aria-label="Principal">
+                <a href="{% url 'pages:home' %}" class="hover:text-brand-teal transition">Inicio</a>
+                <a href="{% url 'properties:list' %}" class="hover:text-brand-teal transition">Propiedades</a>
+                <a href="{% url 'pages:home' %}#contacto" class="hover:text-brand-teal transition">Vender</a>
+                <a href="{% url 'pages:home' %}#servicios" class="hover:text-brand-teal transition">Servicios</a>
+                <a href="#" class="hover:text-brand-teal transition">Nosotros</a>
+                <a href="#" class="hover:text-brand-teal transition">Blog</a>
+                <a href="{% url 'pages:home' %}#contacto" class="hover:text-brand-teal transition">Contacto</a>
+            </nav>
+            <form action="{% url 'properties:list' %}" method="get" class="flex w-full max-w-xs items-center gap-2 rounded-btn border border-brand-grayLight bg-white px-3 py-2 shadow-sm lg:w-64" role="search">
+                <label for="nav-search-q" class="sr-only">Buscar en el sitio</label>
+                <input id="nav-search-q" type="search" name="q" value="{{ request.GET.q }}" placeholder="Buscar…" class="min-w-0 flex-1 border-0 bg-transparent text-sm outline-none focus:ring-0">
+                <button type="submit" class="text-brand-gray hover:text-brand-teal" aria-label="Buscar">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</header>
